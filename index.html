@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SSRF Test via iframe</title>
+</head>
+<body>
+  <h1>SSRF iframe test</h1>
+
+  <script>
+    // Parse query param ?url=http://localhost:80/secret
+    const params = new URLSearchParams(window.location.search);
+    const url = params.get("url");
+
+    if (url) {
+      const iframe = document.createElement("iframe");
+      iframe.src = url;
+      iframe.width = "100%";
+      iframe.height = "600px";
+      document.body.appendChild(iframe);
+    } else {
+      document.body.innerHTML += "<p>No URL provided in ?url= param</p>";
+    }
+  </script>
+</body>
+</html>
